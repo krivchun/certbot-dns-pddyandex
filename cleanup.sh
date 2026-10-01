@@ -18,7 +18,8 @@ if [ -n "${RECORD_ID}" ]; then
 
 	# https://yandex.ru/dev/api360/doc/ref/DomainDNSService/DomainDNSService_Delete.html
 	RESULT=$(curl -s -X DELETE "https://api360.yandex.net/directory/v1/org/$ORG_ID/domains/$DOMAIN/dns/$RECORD_ID" \
-      -H "Authorization: OAuth $OAUTH_TOKEN")
+      -H "Authorization: OAuth $OAUTH_TOKEN" \
+      -H "Content-Type: application/json")
 
     if [[ "$RESULT" == "{}" ]]; then
         echo "ok"

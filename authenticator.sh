@@ -19,8 +19,9 @@ echo "Creating domain at `date -R` for CERTBOT_DOMAIN: $CERTBOT_DOMAIN, DOMAIN: 
 # https://yandex.ru/dev/api360/doc/ref/DomainDNSService/DomainDNSService_Create.html
 RECORD_ID=$(curl -s -X POST "https://api360.yandex.net/directory/v1/org/$ORG_ID/domains/$DOMAIN/dns" \
      -H "Authorization: OAuth $OAUTH_TOKEN" \
+     -H "Content-Type: application/json" \
      --data "{\"name\":\"$CREATE_DOMAIN\",\"text\":\"$CERTBOT_VALIDATION\",\"ttl\":3600,\"type\":\"TXT\"}" \
-	 | python -c "import sys,json;print(json.load(sys.stdin)['recordId'])")
+	 | python3 -c "import sys,json;print(json.load(sys.stdin)['recordId'])")
 
 # Save info for cleanup
 if [ ! -d /tmp/CERTBOT_$CERTBOT_DOMAIN ];then
